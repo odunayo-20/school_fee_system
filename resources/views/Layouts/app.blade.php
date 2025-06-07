@@ -251,7 +251,7 @@
     @include('admin.includes.footer')
 
 @livewireScripts
-@stack('script')
+@stack('scripts')
 
 
 </body>

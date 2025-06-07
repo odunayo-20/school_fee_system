@@ -1,9 +1,9 @@
 <aside class="my-3 bg-white border-0 sidenav navbar navbar-vertical navbar-expand-xs border-radius-xl fixed-start ms-4 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="top-0 p-3 cursor-pointer fas fa-times text-secondary opacity-5 position-absolute end-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="m-0 navbar-brand" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
-        <img src="../assets/img/logo-ct-dark.png" width="26px" height="26px" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold">Creative Tim</span>
+      <a class="m-0 navbar-brand" href="{{ route('admin.dashboard') }}" target="_blank">
+        {{-- <img src="../assets/img/logo-ct-dark.png" width="26px" height="26px" class="navbar-brand-img h-100" alt="main_logo"> --}}
+        <span class="ms-1 font-weight-bold">Fee Payment</span>
       </a>
     </div>
     <hr class="mt-0 horizontal dark">
@@ -89,7 +89,7 @@
         <li class="nav-item">
           <a class="nav-link active" href="{{ route('admin.profile') }}">
             <div class="text-center icon icon-shape icon-sm border-radius-md me-2 d-flex align-items-center justify-content-center">
-              <i class="text-sm ni ni-single-02 text-dark opacity-10"></i>
+              <i class="text-sm ni ni-single text-dark opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Profile</span>
           </a>
@@ -112,17 +112,5 @@
         </li>
       </ul>
     </div>
-    <div class="mx-3 sidenav-footer ">
-      <div class="shadow-none card card-plain" id="sidenavCard">
-        <img class="mx-auto w-50" src="../assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
-        <div class="p-3 pt-0 text-center card-body w-100">
-          <div class="docs-info">
-            <h6 class="mb-0">Need help?</h6>
-            <p class="mb-0 text-xs font-weight-bold">Please check our docs</p>
-          </div>
-        </div>
-      </div>
-      <a href="https://www.creative-tim.com/learning-lab/bootstrap/license/argon-dashboard" target="_blank" class="mb-3 btn btn-dark btn-sm w-100">Documentation</a>
-      <a class="mb-0 btn btn-primary btn-sm w-100" href="https://www.creative-tim.com/product/argon-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
-    </div>
+
   </aside>

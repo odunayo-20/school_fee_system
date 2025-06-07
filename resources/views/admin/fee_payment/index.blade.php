@@ -73,7 +73,7 @@
                                     <td>
                                         <div class="d-flex flex-column justify-content-center">
 
-                                            <p class="mb-0 text-sm text-secondary">N{{ number_format($value->amount) }}</p>
+                                            <p class="mb-0 text-sm text-secondary">N{{ number_format($value->amount, 2) }}</p>
                                         </div>
                                     </td>
 
