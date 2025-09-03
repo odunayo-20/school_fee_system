@@ -15,6 +15,11 @@
                 </div>
 
                 <div class="px-0 pt-0 pb-2 card-body">
+                     <div class="col-md-12">
+                        @if (session('success'))
+                            <div class="alert alert-success">{{ session('success') }}</div>
+                        @endif
+                    </div>
                     <div class="p-0 table-responsive">
                         <table class="table mb-0 align-items-center">
                             <thead>
@@ -30,7 +35,7 @@
                                         Amount</th>
                                     <th
                                         class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Session </th>
+                                        Academic Year </th>
                                     <th
                                         class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         Term</th>
@@ -49,85 +54,64 @@
                                     <td>
                                         <div class="d-flex flex-column justify-content-center">
 
-                                            <p class="mb-0 text-sm text-secondary">{{ $value->student->first_name }} {{ $value->student->last_name }}</p>
+                                            <p class="mb-0 text-sm text-secondary">{{ $value->student->firstname ?? 'N/A'}} {{ $value->student->lastname  ?? 'N/A'}}</p>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="d-flex flex-column justify-content-center">
 
-                                            <p class="mb-0 text-sm text-secondary">{{ $value->class->name }}</p>
+                                            <p class="mb-0 text-sm text-secondary">{{ $value->class->name ?? 'N/A'}}</p>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="d-flex flex-column justify-content-center">
 
-                                            <p class="mb-0 text-sm text-secondary">{{ $value->feeStructure->feeType->name }}</p>
+                                            <p class="mb-0 text-sm text-secondary">{{ $value->feeStructure->feeType->name ?? 'N/A'}}</p>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="d-flex flex-column justify-content-center">
 
-                                            <p class="mb-0 text-sm text-secondary">N{{ number_format($value->amount) }}</p>
+                                            <p class="mb-0 text-sm text-secondary">N{{ number_format($value->amount_paid) }}</p>
                                         </div>
                                     </td>
 
                                     <td>
                                         <div class="d-flex flex-column justify-content-center">
 
-                                            <p class="mb-0 text-sm text-secondary">{{ $value->session->name }}</p>
+                                            <p class="mb-0 text-sm text-secondary">{{ $value->academicYear->year ?? 'N/A'}} {{ $value->academicYear->term->name ?? 'N/A'}}</p>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="d-flex flex-column justify-content-center">
 
-                                            <p class="mb-0 text-sm text-secondary text-capitalize">{{ $value->term->name }}</p>
+                                            <p class="mb-0 text-sm text-secondary text-capitalize">{{ $value->term->name ?? 'N/A'}}</p>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="d-flex flex-column justify-content-center">
 
-                                            <p class="mb-0 text-sm text-secondary text-capitalize">{{ $value->payment_method }}</p>
+                                            <p class="mb-0 text-sm text-secondary text-capitalize">{{ $value->payment_method ?? 'N/A'}}</p>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="d-flex flex-column justify-content-center">
 
-                                            <p class="mb-0 text-sm text-secondary text-capitalize">{{ $value->status }}</p>
+                                            <p class="mb-0 text-sm text-secondary text-capitalize">{{ $value->status ?? 'N/A'}}</p>
                                         </div>
                                     </td>
-                                    {{-- <td>
-                                        <div class="d-flex flex-column justify-content-center">
 
-                                            <p class="mb-0 text-sm text-secondary">{{ $value->description }}</p>
-                                        </div>
-                                    </td> --}}
-                                    {{-- <td>
-                                        <div class="d-flex flex-column justify-content-center">
-
-                                            <p class="mb-0 text-sm text-secondary">{{ $value->status == 0 ? 'Active' : 'Inactive'  }}</p>
-                                        </div>
-                                    </td> --}}
 
                                     <td>
-                                        <a href="#" wire:click='editFeeType({{ $value->id }})' class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">Edit</a>
-                                        <a href="#"  wire:click='deleteFeeType({{ $value->id }})' class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Del</a>
+                                        <a href="#" wire:click='editFeePaymentStatus({{ $value->id }})' class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">Edit</a>
+                                        <a href="#"  wire:click='deleteFeePayment({{ $value->id }})' class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Del</a>
+
                                     </td>
 
                                 </tr>
                                 @empty
                                 @endforelse
-                                {{-- <td>
-                                    <div class="px-2 py-1 d-flex">
-                                        <div>
-                                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3"
-                                                alt="user1">
-                                        </div>
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm">John Michael</h6>
-                                            <p class="mb-0 text-xs text-secondary">john@creative-tim.com</p>
-                                        </div>
-                                    </div>
-                                </td> --}}
+
 
                             </tbody>
                         </table>
@@ -136,4 +120,14 @@
             </div>
         </div>
     </div>
+
+    @include('livewire.admin.fee-payment.fee-payment-modal')
+    @section('scripts')
+        <script>
+            window.addEventListener('close-modal', event => {
+                $('#deleteModal').modal('hide');
+                $('#editModal').modal('hide');
+            });
+        </script>
+    @endsection
 </div>

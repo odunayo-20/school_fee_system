@@ -11,7 +11,7 @@ class ExternalStudent extends Model
 
 
     public function class(){
-        return $this->belongsTo(ExternalClass::class, 'class_id');
+        return $this->belongsTo(ExternalClass::class, 'current_class', 'id');
     }
 
     public function session(){

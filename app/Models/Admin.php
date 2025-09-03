@@ -14,7 +14,9 @@ class Admin extends Authenticatable
     // In app/Models/Order.php
   protected $table = 'admins';
     protected $fillable = [
-        'name',
+        'firstname',
+        'lastname',
+        'username',
         'email',
         'phone',
         'image',

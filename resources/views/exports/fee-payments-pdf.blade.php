@@ -161,12 +161,13 @@
                 <th>#</th>
                 <th>Student</th>
                 <th>Class</th>
-                <th>Session</th>
+                <th>Academic Year</th>
                 <th>Term</th>
                 <th>Fee Type</th>
                 <th>Expected</th>
                 <th>Paid</th>
                 <th>Balance</th>
+                <th>Status</th>
                 <th>Date</th>
             </tr>
         </thead>
@@ -174,14 +175,15 @@
             @foreach($payments as $index => $payment)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $payment->student->first_name }} {{ $payment->student->last_name }}</td>
+                    <td>{{ $payment->student->firstname }} {{ $payment->student->lastname }}</td>
                     <td>{{ $payment->class->name ?? '-' }}</td>
-                    <td>{{ $payment->session->name ?? $payment->session_name ?? '-' }}</td>
+                    <td>{{ $payment->academicYear->year ?? $payment->session_name ?? '-' }} {{ $payment->academicYear->term->name ?? '-' }}</td>
                     <td>{{ $payment->term->name ?? '-' }}</td>
                     <td>{{ $payment->feeStructure->feeType->name ?? '-' }}</td>
                     <td>N{{ number_format($payment->expected_amount, 2) }}</td>
                     <td>N{{ number_format($payment->amount_paid, 2) }}</td>
                     <td>N{{ number_format($payment->balance, 2) }}</td>
+                    <td>{{ $payment->status ?? '-' }}</td>
                     <td>{{ \Carbon\Carbon::parse($payment->created_at)->format('d M Y') }}</td>
                 </tr>
             @endforeach

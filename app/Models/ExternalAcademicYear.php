@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ExternalSession extends Model
+class ExternalAcademicYear extends Model
 {
-    protected $connection = 'mysql2';
+      protected $connection = 'mysql2';
     protected $table = 'academic_years';
 
     public function term(){
@@ -14,7 +14,6 @@ class ExternalSession extends Model
     }
 
     public function academicYear(){
-        return $this->hasMany(ExternalSession::class, 'session_id');
+        return $this->hasMany(ExternalSession::class, 'academic_year_id');
     }
-
 }

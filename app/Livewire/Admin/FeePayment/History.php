@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Admin\FeePayment;
 
-use PDF;
 use Livewire\Component;
 use App\Models\FeePayment;
 use App\Models\ExternalTerm;
@@ -11,6 +10,7 @@ use App\Models\ExternalSession;
 use App\Models\ExternalStudent;
 use App\Exports\FeePaymentsExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class History extends Component
 {
@@ -38,7 +38,7 @@ class History extends Component
             ->when($this->filter_start, fn($q) => $q->whereDate('created_at', '>=', $this->filter_start))
             ->when($this->filter_end, fn($q) => $q->whereDate('created_at', '<=', $this->filter_end))
             ->when($this->filter_term, fn($q) => $q->where('term_id', $this->filter_term))
-            ->when($this->filter_session, fn($q) => $q->where('session_id', $this->filter_session))
+            // ->when($this->filter_session, fn($q) => $q->where('session_id', $this->filter_session))
             ->when($this->filter_student, fn($q) => $q->where('student_id', $this->filter_student))
             ->latest()
             ->get();
@@ -53,8 +53,8 @@ class History extends Component
                 $q->whereHas(
                     'student',
                     fn($q2) =>
-                    $q2->where('first_name', 'like', "%{$this->search}%")
-                        ->orWhere('last_name', 'like', "%{$this->search}%")
+                    $q2->where('firstname', 'like', "%{$this->search}%")
+                        ->orWhere('lastname', 'like', "%{$this->search}%")
                 )
             )
             ->latest()
@@ -90,13 +90,28 @@ class History extends Component
     public function Receipt($paymentId)
     {
         $filename = 'fee_payments_' . now()->format('Y-m-d') . ".pdf";
-        // dd('ddddd');
-        $payment = FeePayment::with(['student', 'term', 'class', 'feeStructure.feeType'])->findOrFail($paymentId);
-        $pdf = PDF::loadView('exports.payment-receipt', compact('payment'));
+
+        $payment = FeePayment::with(['student', 'term', 'class', 'feeStructure.feeType', 'academicYear'])->findOrFail($paymentId);
+
+        // Calculate total previously paid amount
+        $totalPreviouslyPaid = FeePayment::where('student_id', $payment->student_id)
+            ->where('fee_structure_id', $payment->fee_structure_id)
+            ->where('created_at', '<', $payment->created_at)
+            ->sum('amount_paid');
+
+        // Calculate remaining balance
+        $totalAmount = $payment->feeStructure->amount;
+        $currentPaid = $payment->amount_paid;
+        $remainingBalance = max(0, $totalAmount - ($totalPreviouslyPaid + $currentPaid));
+
+        $pdf = PDF::loadView('exports.payment-receipt', [
+            'payment' => $payment,
+            'totalPreviouslyPaid' => $totalPreviouslyPaid,
+            'remainingBalance' => $remainingBalance
+        ]);
 
         return response()->streamDownload(fn() => print($pdf->output()), $filename);
-        // return $pdf->download('receipt_' . now()->format('Ymd_His') . '.pdf');
-            }
+    }
 
 
     public function closeReceipt()

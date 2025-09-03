@@ -13,7 +13,7 @@ class FeePayment extends Model
         return $this->belongsTo(ExternalClass::class, 'class_id');
     }
 
-    public function session(){
+    public function academicYear(){
         return $this->belongsTo(ExternalSession::class, 'session_id');
     }
     public function term(){
@@ -28,4 +28,5 @@ class FeePayment extends Model
     public function feeStructure(){
         return $this->belongsTo(FeeStructure::class, 'fee_structure_id');
     }
+
 }

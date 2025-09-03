@@ -14,8 +14,9 @@ class FeeStructureController extends Controller
 {
     public function index(){
 
-        $fee_structures = FeeStructure::get();
-        return view('admin.fee_structure.index', compact('fee_structures'));
+        $fee_structures = FeeStructure::with('feeType')->get();
+// dd($fee_structures->feeType);
+       return view('admin.fee_structure.index', compact('fee_structures'));
     }
 
 
@@ -24,7 +25,7 @@ class FeeStructureController extends Controller
 
         // dd($)
         $feeTypes = FeeType::where('status', 0)->get();
-        $sessions = ExternalSession::where('status', 0)->get();
+        $sessions = ExternalSession::where('status', 'active')->get();
         $terms = ExternalTerm::where('status', 0)->get();
         return view('admin.fee_structure.create', compact(['classes', 'feeTypes', 'sessions', 'terms']));
     }
@@ -36,16 +37,16 @@ class FeeStructureController extends Controller
 
         $request->validate([
             'class' => 'required',
-            'session' => 'required',
+            'academic_year' => 'required',
             'term' => 'required',
-            'amount' => 'required',
+            'amount' => 'required|numeric|max_digits:10',
             'description' => 'required',
             'feeType' => 'required',
         ]);
 
         $feeStructure = FeeStructure::create([
             'class_id' => $request->class,
-            'session_id' => $request->session,
+            'session_id' => $request->academic_year,
             'term_id' => $request->term,
             'fee_type_id' => $request->feeType,
             'amount' => $request->amount,
@@ -56,4 +57,50 @@ class FeeStructureController extends Controller
         return redirect(route('admin.feeStructure'));
 
     }
+
+
+
+    public function edit($id){
+        $fee_structure = FeeStructure::findOrFail($id);
+        $classes = ExternalClass::get();
+
+        // dd($)
+        $feeTypes = FeeType::where('status', 0)->get();
+        $sessions = ExternalSession::where('status', 'active')->get();
+        $terms = ExternalTerm::where('status', 0)->get();
+        // dd($fee_structure);
+        return view('admin.fee_structure.edit', compact(['fee_structure', 'classes', 'feeTypes', 'sessions', 'terms']));
+    }
+
+    public function update(Request $request, $id){
+        // dd($request->all());
+        $fee_structure = FeeStructure::findOrFail($id);
+        $request->validate([
+            'class' => 'required',
+            'academic_year' => 'required',
+            'term' => 'required',
+            'amount' => 'required',
+            'description' => 'required',
+            'feeType' => 'required',
+        ]);
+
+        $fee_structure->update([
+            'class_id' => $request->class,
+            'session_id' => $request->academic_year,
+            'term_id' => $request->term,
+            'fee_type_id' => $request->feeType,
+            'amount' => $request->amount,
+            'description' => $request->description,
+            'status' => $request->status == true ? 1 : 0,
+        ]);
+        session()->flash('success', 'Fee Structure Successfully Updated');
+        return redirect(route('admin.feeStructure'));
+    }
+
+    public function destroy($id){
+        $fee_structure = FeeStructure::findOrFail($id);
+        $fee_structure->delete();
+        return redirect()->back();
+    }
+
 }

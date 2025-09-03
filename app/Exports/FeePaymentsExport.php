@@ -41,14 +41,13 @@ class FeePaymentsExport implements FromCollection, WithHeadings, WithMapping, Wi
             'Student ID',
             'Class',
             'Term',
-            'Session',
+            'Academic Year',
             'Fee Type',
             'Amount Paid',
             'Payment Method',
             'Payment Date',
             'Receipt Number',
             'Status',
-            'Remarks'
         ];
     }
 
@@ -60,18 +59,18 @@ class FeePaymentsExport implements FromCollection, WithHeadings, WithMapping, Wi
     {
         return [
             $payment->id,
-            $payment->student->first_name . ' ' . $payment->student->last_name,
-            $payment->student->student_id ?? 'N/A',
+            $payment->student->firstname ?? 'N/A' . ' ' . $payment->student->lastname ?? 'N/A',
+            $payment->student->reg_no ?? 'N/A',
             $payment->class->name ?? 'N/A',
             $payment->term->name ?? 'N/A',
-            $payment->session->name ?? 'N/A',
+            $payment->academicYear->year . '  ' . $payment->academicYear->term->name ?? 'N/A',
             $payment->feeStructure->feeType->name ?? 'N/A',
-            '₦' . number_format($payment->amount, 2),
+            '₦' . number_format($payment->amount_paid, 2),
             ucfirst($payment->payment_method ?? 'N/A'),
             $payment->created_at->format('Y-m-d H:i:s'),
-            $payment->receipt_number ?? 'N/A',
+            $payment->payment_reference ?? 'N/A',
             ucfirst($payment->status ?? 'completed'),
-            $payment->remarks ?? 'N/A'
+            // $payment->remarks ?? 'N/A'
         ];
     }
 

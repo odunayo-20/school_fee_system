@@ -64,7 +64,7 @@ class FeePaymentController extends Controller
             'structure' => $payment->feeStructure,
         ]);
 
-        return $pdf->stream('receipt_' . $payment->student->first_name . '.pdf');
+        return $pdf->stream('receipt_' . $payment->student->firstname . '.pdf');
     }
 
 }

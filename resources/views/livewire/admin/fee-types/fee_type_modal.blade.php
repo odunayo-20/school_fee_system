@@ -1,5 +1,7 @@
 
 
+
+
     <!-- Create brand -->
     <div wire:ignore.self class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -48,14 +50,7 @@
                     <h5 class="modal-title" id="editModalLabel">Edit Fee Type</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div wire:loading>
-
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>loading....
-                </div>
-
-                <div wire:loading.remove>
+                
 
                 <div class="modal-body">
                         <form wire:submit.prevent="updateFeeType">
@@ -85,7 +80,7 @@
                             <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
-                </div>
+                {{-- </div> --}}
             </div>
         </div>
     </div>
@@ -98,12 +93,12 @@
                     <h5 class="modal-title" id="deleteModalLabel">Delete Fee Type</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div wire:loading class="spinner-border text-primary" role="status">
+                {{-- <div wire:loading class="spinner-border text-primary" role="status">
                     <span class="visually-hidden">Loading...</span>
-                </div>Loading....
+                </div>Loading.... --}}
 
                 <form  wire:submit.prevent='destroyFeeType'>
-                        <div wire:loading.remove>
+                        {{-- <div wire:loading.remove> --}}
 
                         <div class="modal-body">
                             <h6>Are you sure you want to delete this data?</h6>
@@ -112,7 +107,7 @@
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Yes. Delete</button>
                         </div>
-                    </div>
+                    {{-- </div> --}}
             </form>
             </div>
         </div>

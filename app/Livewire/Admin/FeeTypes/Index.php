@@ -61,14 +61,13 @@ class Index extends Component
             'slug' => 'required|string',
         ]);
 
-        $this->class->update([
+        $this->fee_type->update([
             'name' => $this->name,
             'slug' => Str::slug($this->slug),
             'status' => $this->status == true ? '1' : '0',
 
         ]);
-        session()->flash('success', value: 'Fee Type Successfully Updated');
-        $this->reset();
+        session()->flash('success',  'Fee Type Successfully Updated');
         $this->dispatch('close-modal');
     }
 
@@ -81,9 +80,10 @@ class Index extends Component
     {
         FeeType::findOrFail($this->fee_type)->delete();
         session()->flash('success', 'Fee Type Successfully Deleted');
-        $this->reset();
         $this->dispatch('close-modal');
     }
+
+
 
 
     public function render()

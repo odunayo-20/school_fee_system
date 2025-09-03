@@ -16,47 +16,47 @@
             font-family: Arial, sans-serif;
             background: #ffffff;
             color: #000000;
-            line-height: 1.4;
-            font-size: 14px;
+            line-height: 1.2;
+            font-size: 12px;
         }
 
         .receipt-container {
-            max-width: 600px;
-            margin: 20px auto;
+            max-width: 500px;
+            margin: 10px auto;
             background: #ffffff;
-            border: 2px solid #2563eb;
+            border: 1px solid #2563eb;
             padding: 0;
         }
 
         .receipt-header {
-            background-color:  rgb(59, 15, 129);
+            background-color: rgb(59, 15, 129);
             color: #ffffff;
-            padding: 20px;
+            padding: 10px;
             text-align: center;
         }
 
         .school-logo {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             background-color: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
-            margin: 0 auto 10px;
+            margin: 0 auto 5px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
-            border: 2px solid #ffffff;
+            border: 1px solid #ffffff;
         }
 
         .school-name {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
 
         .school-address {
-            font-size: 12px;
+            font-size: 10px;
             opacity: 0.9;
         }
 
@@ -71,101 +71,102 @@
         }
 
         .receipt-body {
-            padding: 16px;
+            padding: 10px;
         }
 
         .student-info {
             background-color: #f8f9fa;
-            padding: 15px;
-            border-left: 5px solid #2563eb;
-            margin-bottom: 10px;
+            padding: 8px;
+            border-left: 3px solid #2563eb;
+            margin-bottom: 8px;
         }
 
         .info-row {
             display: table;
             width: 100%;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
         .info-label {
             display: table-cell;
             font-weight: bold;
             color: #333333;
-            width: 40%;
-            padding-right: 10px;
+            width: 35%;
+            padding-right: 5px;
+            font-size: 11px;
         }
 
         .info-value {
             display: table-cell;
             color: #000000;
             font-weight: normal;
+            font-size: 11px;
         }
 
         .amount-highlight {
             background-color: #4b6fbe;
-            /* background-color: #10b981; */
             color: #ffffff;
-            padding: 20px;
+            padding: 10px;
             text-align: center;
-            margin: 15px 0;
-            /* border: 2px solid #059669; */
-            border: 2px solid #3633e0;
+            margin: 8px 0;
+            border: 1px solid #3633e0;
         }
 
         .amount-text {
-            font-size: 14px;
-            margin-bottom: 5px;
+            font-size: 12px;
+            margin-bottom: 3px;
         }
 
         .amount-value {
-            font-size: 28px;
+            font-size: 20px;
             font-weight: bold;
         }
 
         .section-title {
-            font-size: 16px;
+            font-size: 13px;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             color: #000000;
-            border-bottom: 2px solid #2563eb;
-            padding-bottom: 5px;
+            border-bottom: 1px solid #2563eb;
+            padding-bottom: 3px;
         }
 
         .payment-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 15px 0;
-            border: 2px solid #000000;
+            margin: 8px 0;
+            border: 1px solid #000000;
         }
 
         .payment-table th {
             background-color: #f8f9fa;
-            padding: 12px;
+            padding: 6px;
             text-align: left;
             font-weight: bold;
             color: #000000;
             border: 1px solid #000000;
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
         }
 
         .payment-table td {
-            padding: 12px;
+            padding: 6px;
             border: 1px solid #000000;
             color: #000000;
+            font-size: 11px;
         }
 
         .payment-summary {
-            margin: 20px 0;
+            margin: 10px 0;
         }
 
         .summary-row {
             display: table;
             width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             background-color: #f8f9fa;
-            padding: 10px;
-            border-left: 3px solid #2563eb;
+            padding: 6px;
+            border-left: 2px solid #2563eb;
         }
 
         .summary-label {
@@ -183,7 +184,7 @@
         }
 
         .signature-section {
-            margin: 30px 0 20px;
+            margin: 15px 0 10px;
             display: table;
             width: 100%;
         }
@@ -192,28 +193,28 @@
             display: table-cell;
             text-align: center;
             width: 50%;
-            padding: 0 20px;
+            padding: 0 10px;
         }
 
         .signature-line {
-            height: 50px;
-            border-bottom: 2px solid #000000;
-            margin-bottom: 8px;
+            height: 30px;
+            border-bottom: 1px solid #000000;
+            margin-bottom: 4px;
         }
 
         .signature-label {
-            font-size: 12px;
+            font-size: 10px;
             color: #333333;
             font-weight: bold;
         }
 
         .receipt-footer {
             background-color: #f8f9fa;
-            padding: 15px;
+            padding: 8px;
             text-align: center;
             color: #333333;
-            font-size: 12px;
-            border-top: 2px solid #2563eb;
+            font-size: 10px;
+            border-top: 1px solid #2563eb;
         }
 
         .contact-info {
@@ -302,31 +303,27 @@
             <div class="student-info">
                 <div class="info-row">
                     <div class="info-label">Pupil's Name:</div>
-                    <div class="info-value">{{ $payment->student->first_name }} {{ $payment->student->last_name }}</div>
-                </div>
-                <div class="info-row">
-                    <div class="info-label">Grade:</div>
-                    <div class="info-value">Grade 7A</div>
+                    <div class="info-value">{{ $payment->student->firstname }} {{ $payment->student->lastname }}</div>
                 </div>
                 <div class="info-row">
                     <div class="info-label">Admission No:</div>
-                    <div class="info-value">{{ $payment->student->register_number }}</div>
+                    <div class="info-value">{{ $payment->student->reg_no }}</div>
                 </div>
                 <div class="info-row">
                     <div class="info-label">Date:</div>
-                    <div class="info-value">{{ \Carbon\Carbon::parse($payment->created_at)->format('F d, Y');
- }}</div>
+                    <div class="info-value">{{ \Carbon\Carbon::parse($payment->created_at)->format('F d, Y') }}</div>
                 </div>
                 <div class="info-row">
                     <div class="info-label">Session:</div>
-                    <div class="info-value">{{ $payment->session->name }}</div>
+                    {{-- @dd($payment) --}}
+                    <div class="info-value">{{ $payment->academicYear->year }}</div>
                 </div>
                 <div class="info-row">
                     <div class="info-label">Term:</div>
                     <div class="info-value">{{ $payment->term->name }}</div>
                 </div>
             </div>
-   <div class="amount-highlight">
+            <div class="amount-highlight">
                 <div class="amount-text">Amount Paid</div>
                 <div class="amount-value">N{{ number_format($payment->amount_paid, 2) }}</div>
             </div>
@@ -348,6 +345,22 @@
                     </tbody>
                 </table>
             </div>
+
+            <h4>Payment Receipt</h4>
+
+
+            <table class="table">
+                <tr>
+                    <td>Previously Paid</td>
+                    <td>N{{ number_format($totalPreviouslyPaid, 2) }}</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Remaining Balance</strong></td>
+                    <td><strong>N{{ number_format($remainingBalance, 2) }}</strong></td>
+                </tr>
+            </table>
+
 
             <div class="payment-summary">
                 <div class="summary-row">
