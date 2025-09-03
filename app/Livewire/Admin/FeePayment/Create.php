@@ -179,7 +179,7 @@ $this->remainingBalance = max(0, $totalAmount - ($totalPaid + $amountPaid));
             'amount_paid'         => $this->amount_paid,
             'expected_amount'     => $totalExpected,
             'balance'             => max(0, $totalExpected - ($totalPaid + $this->amount_paid)),
-            'payment_reference'   => $this->payment_reference ?? 'N/A',
+            'payment_reference'   => $this->payment_reference,
         ]);
 
         session()->flash('success', 'Fee Payment is Made Successfully!');

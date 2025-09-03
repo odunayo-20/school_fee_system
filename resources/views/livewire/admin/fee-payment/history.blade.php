@@ -4,7 +4,7 @@
     {{-- Search and Filters --}}
     <div class="mb-3 row">
         <div class="col-md-6">
-            <input type="text" wire:model.debounce.500ms="search" class="form-control"
+            <input type="text" wire:model.live.debounce.500ms="search" class="form-control"
                 placeholder="Search by student name...">
         </div>
         <div class="col-md-6 text-end">
@@ -108,7 +108,7 @@
                 @endforelse
             </tbody>
         </table>
-    </div>
+
 
     {{-- Pagination --}}
     <div class="mt-3">

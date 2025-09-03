@@ -2,12 +2,15 @@
 
 namespace App\Livewire\Admin\FeeStructure;
 
-use App\Models\FeeStructure;
 use Livewire\Component;
+use App\Models\FeeStructure;
+use Livewire\WithPagination;
+
 
 class Index extends Component
 {
-
+ use WithPagination;
+    protected $paginationTheme = 'bootstrap';
     public $fee_structure;
 
 
@@ -16,7 +19,7 @@ class Index extends Component
     public function render()
     {
         // $fee_structures = $this->fee_structures;
-        $fee_structures = FeeStructure::with(['feeType', 'term', 'session', 'class'])->get();
+        $fee_structures = FeeStructure::with(['feeType', 'term', 'session', 'class'])->paginate(3);
         return view('livewire.admin.fee-structure.index', compact('fee_structures'));
     }
 

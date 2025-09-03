@@ -25,13 +25,13 @@ class AuthController extends Controller
     public function signupConfirm(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required',
+            'username' => 'required',
             'email' => 'required|unique:admins,email',
             'password' => 'required|min:5',
         ]);
 
        $admin = Admin::create([
-                'name' => $request->name,
+                'username' => $request->username,
                 'email' => $request->email,
                 'password' => Hash::make($request->password)
             ]);

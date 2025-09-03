@@ -45,6 +45,9 @@
                                     <th
                                         class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         Status</th>
+                                    <th
+                                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Action</th>
 
                                 </tr>
                             </thead>
@@ -103,8 +106,8 @@
 
 
                                     <td>
-                                        <a href="#" wire:click='editFeePaymentStatus({{ $value->id }})' class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">Edit</a>
-                                        <a href="#"  wire:click='deleteFeePayment({{ $value->id }})' class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Del</a>
+                                        <a href="#" wire:click='editFeePaymentStatus({{ $value->id }})' class="btn btn-xs btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">Edit</a>
+                                        <a href="#"  wire:click='deleteFeePayment({{ $value->id }})' class="btn btn-xs btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Del</a>
 
                                     </td>
 
@@ -115,6 +118,8 @@
 
                             </tbody>
                         </table>
+                        <div class="mt-3 text-center">
+                            {{ $feePayments->links() }}
                     </div>
                 </div>
             </div>

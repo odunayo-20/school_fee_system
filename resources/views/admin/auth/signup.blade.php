@@ -40,9 +40,9 @@
                             <form role="form" action="{{ route('admin.signupConfirm') }}" method="POST">
                                 @csrf
                                 <div class="mb-3">
-                                    <input type="text" class="form-control" name="name" placeholder="Name"
+                                    <input type="text" class="form-control" name="username" placeholder="username"
                                         aria-label="Name">
-                                        @error('name')
+                                        @error('username')
                                         <span class="text-xs text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>

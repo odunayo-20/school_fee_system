@@ -83,13 +83,18 @@
 
                                 </tbody>
                             </table>
+
+                            {{-- Pagination --}}
+                            <div class="mt-3">
+                                {{ $students->links() }}
+                                
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-       
+
     </div>
 
 @endsection

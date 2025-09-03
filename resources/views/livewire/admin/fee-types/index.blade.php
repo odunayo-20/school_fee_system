@@ -18,11 +18,11 @@
                 </div>
                 <div class="px-0 pt-0 pb-2 card-body">
 
-                      <div class="col-md-12">
-                                @if (session('success'))
-                                <div class="alert alert-success">{{ session('success') }}</div>
-                            @endif
-                            </div>
+                    <div class="col-md-12">
+                        @if (session('success'))
+                            <div class="alert alert-success">{{ session('success') }}</div>
+                        @endif
+                    </div>
 
                     <div class="p-0 table-responsive">
                         <table class="table mb-0 align-items-center">
@@ -33,6 +33,9 @@
                                     <th
                                         class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         Slug</th>
+                                    <th
+                                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Status</th>
 
                                 </tr>
                             </thead>
@@ -54,10 +57,10 @@
                                         <td>{{ $value->status == '1' ? 'hidden' : 'visible' }}</td>
                                         <td>
                                             <a href="#" wire:click='editFeeType({{ $value->id }})'
-                                                class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                                class="btn btn-xs btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#editModal">Edit</a>
                                             <a href="#" wire:click='deleteFeeType({{ $value->id }})'
-                                                class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                                class="btn btn-xs btn-danger" data-bs-toggle="modal"
                                                 data-bs-target="#deleteModal">Del</a>
                                         </td>
 
@@ -67,21 +70,24 @@
 
                             </tbody>
                         </table>
+                        {{-- Pagination --}}
+                        <div class="mt-3">
+                            {{ $fee_types->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
+        @section('scripts')
+            <script>
+                window.addEventListener('close-modal', event => {
+                    $('#createModal').modal('hide');
+                    $('#editModal').modal('hide');
+                    $('#deleteModal').modal('hide');
+                });
+            </script>
+        @endsection
+
     </div>
-
-
-    @section('scripts')
-        <script>
-            window.addEventListener('close-modal', event => {
-                $('#createModal').modal('hide');
-                $('#editModal').modal('hide');
-                $('#deleteModal').modal('hide');
-            });
-        </script>
-    @endsection
-
-</div>

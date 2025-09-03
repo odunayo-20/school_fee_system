@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ExternalClass;
 use Illuminate\Http\Request;
+use Livewire\WithPagination;
+use App\Models\ExternalClass;
 
 class ClassController extends Controller
 {
-    public function index(){
+    protected $paginationTheme = 'bootstrap';
+    use WithPagination;
+    public function index()
+    {
 
-        $classes = ExternalClass::get();
+        $classes = ExternalClass::paginate(3);
         return view('admin.class.index', compact('classes'));
     }
 }

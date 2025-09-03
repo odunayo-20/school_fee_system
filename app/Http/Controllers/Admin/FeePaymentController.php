@@ -13,7 +13,7 @@ class FeePaymentController extends Controller
 {
     public function index(){
 
-        $feePayments = FeePayment::get();
+        $feePayments = FeePayment::paginate(1);
 
         return view('admin.fee_payment.index', compact('feePayments'));
     }

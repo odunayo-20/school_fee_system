@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\FeePayment;
 
 use Livewire\Component;
 use App\Models\FeePayment;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
@@ -11,9 +12,11 @@ class Index extends Component
     public $feePayment;
     public $feePaymentStatus, $status;
 
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
     public function render()
     {
-        $feePayments = FeePayment::get();
+        $feePayments = FeePayment::paginate(5);
         return view('livewire.admin.fee-payment.index', compact('feePayments'));
     }
 

@@ -95,19 +95,21 @@
                                             <td>
                                                 {{-- <a href="{{ route("admin.feeStructure.edit", $value->id) }}" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">Edit</a> --}}
                                                 <a href="{{ route('admin.feeStructure.edit', $value->id) }}"
-                                                    class="btn btn-sm btn-primary">Edit</a>
+                                                    class="btn btn-xs btn-primary">Edit</a>
                                                 <a href="#" wire:click='deleteFeeStructure({{ $value->id }})'
-                                                    class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                                    class="btn btn-xs btn-danger" data-bs-toggle="modal"
                                                     data-bs-target="#deleteModal">Del</a>
                                             </td>
 
                                         </tr>
                                     @empty
                                     @endforelse
-                                   
+
 
                                 </tbody>
                             </table>
+                            <div class="mt-3">
+                                {{ $fee_structures->links() }}
                         </div>
                     </div>
                 </div>

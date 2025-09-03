@@ -5,9 +5,12 @@ namespace App\Livewire\Admin\FeeTypes;
 use App\Models\FeeType;
 use Livewire\Component;
 use Illuminate\Support\Str;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
+     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     // public $fee_types;
 
@@ -88,7 +91,7 @@ class Index extends Component
 
     public function render()
     {
-        $fee_types = FeeType::get();
+        $fee_types = FeeType::paginate(5);
         return view('livewire.admin.fee-types.index', compact('fee_types'));
     }
 }

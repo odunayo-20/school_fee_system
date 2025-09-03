@@ -15,9 +15,10 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class History extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $search = '';
-    public $perPage = 10;
+    public $perPage = 5;
 
     public $filter_start, $filter_end, $filter_term, $filter_session, $filter_student;
     public $sessions, $terms, $students;
