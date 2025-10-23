@@ -54,10 +54,10 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::get('/fee-payment/create', [FeePaymentController::class, 'create'])->name('admin.feePayment.create');
     Route::post('/fee-payment/store', [FeePaymentController::class, 'store'])->name('admin.feePayment.store');
 
-    Route::get('admin/fee-payment/receipt/{payment}', [FeePaymentController::class, 'downloadReceipt'])
+    Route::get('/fee-payment/receipt/{payment}', [FeePaymentController::class, 'downloadReceipt'])
     ->name('admin.fee-payment.receipt');
 
-    Route::get('admin/fee-payment/history', \App\Livewire\Admin\FeePayment\History::class)
+    Route::get('/fee-payment/history', \App\Livewire\Admin\FeePayment\History::class)
     ->name('admin.fee-payment.history');
 
 });

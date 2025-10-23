@@ -14,9 +14,11 @@ class Index extends Component
 
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
+     public $perPage = 10;
     public function render()
     {
-        $feePayments = FeePayment::paginate(5);
+        $feePayments = FeePayment::paginate($this->perPage);
+        
         return view('livewire.admin.fee-payment.index', compact('feePayments'));
     }
 

@@ -24,7 +24,7 @@ class Index extends Component
 
     public $name, $slug, $fee_type, $status;
 
-
+ public $perPage = 10;
 
     public function storeFeeType()
     {
@@ -91,7 +91,7 @@ class Index extends Component
 
     public function render()
     {
-        $fee_types = FeeType::paginate(5);
+        $fee_types = FeeType::paginate($this->perPage);
         return view('livewire.admin.fee-types.index', compact('fee_types'));
     }
 }

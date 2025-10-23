@@ -4,15 +4,17 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
 
-    <title>Mecbill - @yield('title')</title>
+    <link rel='shortcut icon' type='image/x-icon' href='{{ asset('images/logo/logo.png') }}' />
+
+    <title>Ogo Oluwa School - @yield('title')</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="@yield('meta_keyword')" name="keywords">
     <meta content="@yield('meta_title')" name="title">
     <meta content="@yield('meta_description')" name="description">
 
+@livewireStyles
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
@@ -25,10 +27,17 @@
 </head>
 
 <body class="bg-gray-100 g-sidenav-show">
-    <div class="top-0 position-absolute w-100 min-height-300"
+
+     <div class="top-0 position-absolute w-100 min-height-300"
+        style="background-image: url('{{ asset('admin/assets/img/class-background.jpg') }}'); background-position-y: 50%;">
+        <span class="mask bg-dark opacity-6"></span>
+    </div>
+    {{-- <div class="top-0 position-absolute w-100 min-height-300"
         style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/profile-layout-header.jpg'); background-position-y: 50%;">
         <span class="mask bg-primary opacity-6"></span>
-    </div>
+    </div> --}}
+
+
 
     @include('admin.includes.sidebar')
     <div class="main-content position-relative max-height-vh-100 h-100">
@@ -72,8 +81,7 @@
 
                         </li>
 
-
-                        {{-- <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                        <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                             <a href="javascript:;" class="p-0 text-white nav-link" id="iconNavbarSidenav">
                                 <div class="sidenav-toggler-inner">
                                     <i class="bg-white sidenav-toggler-line"></i>
@@ -87,7 +95,7 @@
                                 <i class="cursor-pointer fa fa-cog fixed-plugin-button-nav"></i>
                             </a>
                         </li>
-                        <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                        {{-- <li class="nav-item dropdown pe-2 d-flex align-items-center">
                             <a href="javascript:;" class="p-0 text-white nav-link" id="dropdownMenuButton"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="cursor-pointer fa fa-bell"></i>
@@ -182,10 +190,39 @@
 
     @include('admin.includes.footer')
 
-
+@livewireScripts
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Argon Dashboard JavaScript -->
+    <script src="{{ asset('admin/assets/js/argon-dashboard.min.js') }}"></script>
     @yield('scripts')
     @stack('scripts')
+
+    <style>
+        .modal {
+    z-index: 1055 !important;
+}
+.modal-backdrop {
+    z-index: 1050 !important;
+}
+main {
+    margin-left: 250px; /* match sidenav width */
+}
+
+#sidenav-main {
+    z-index: 100 !important;
+}
+
+    </style>
+
+    <script>
+        $('.modal').on('hidden.bs.modal', function () {
+    $('.modal-backdrop').remove();
+    $('body').removeClass('modal-open');
+});
+
+    </script>
 </body>
 
 </html>

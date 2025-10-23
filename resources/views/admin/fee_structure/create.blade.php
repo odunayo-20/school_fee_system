@@ -41,15 +41,15 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Class</label>
-                                    <select name="class" class="form-select">
+                                    <select name="class_section" class="form-select">
                                         <option value="">--Select Class--</option>
-                                        @forelse ($classes as $value)
-                                        <option value="{{ $value->id }}" {{ old('class') == $value->id ? 'selected' : '' }}>{{ $value->name }}</option>
+                                        @forelse ($classSections as $value)
+                                        <option value="{{ $value->id }}" {{ old('class_section') == $value->id ? 'selected' : '' }}>{{ $value->class->name }}{{ $value->section }}</option>
                                         @empty
                                         <option value="">--No Record--</option>
                                         @endforelse
                                     </select>
-                                    @error('class')
+                                    @error('class_section')
                                     <span class="text-xs text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>

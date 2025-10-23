@@ -42,18 +42,18 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Class</label>
-                                        <select name="class" class="form-select">
-                                            <option value="">--Select Class--</option>
-                                            @forelse ($classes as $value)
+                                        <label>Class Section</label>
+                                        <select name="class_section" class="form-select">
+                                            <option value="">--Select Class Section--</option>
+                                            @forelse ($classSections as $value)
                                                 <option value="{{ $value->id }}"
-                                                    {{ old('class', $fee_structure->class_id ?? '') == $value->id ? 'selected' : '' }}>
-                                                    {{ $value->name }}</option>
+                                                    {{ old('class_section', $fee_structure->class_section_id ?? '') == $value->id ? 'selected' : '' }}>
+                                                    {{ $value->class->name }}{{ $value->section }}</option>
                                             @empty
                                                 <option value="">--No Record--</option>
                                             @endforelse
                                         </select>
-                                        @error('class')
+                                        @error('class_section')
                                             <span class="text-xs text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>

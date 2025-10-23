@@ -11,9 +11,10 @@ use App\Http\Controllers\Controller;
 
 class FeePaymentController extends Controller
 {
+     public $perPage = 10;
     public function index(){
 
-        $feePayments = FeePayment::paginate(1);
+        $feePayments = FeePayment::paginate($this->perPage);
 
         return view('admin.fee_payment.index', compact('feePayments'));
     }

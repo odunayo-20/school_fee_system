@@ -3,7 +3,7 @@
             <div class="col-12">
                 <div class="mb-4 card">
                     <div class="pb-0 card-header">
-                        <h6>Authors table</h6>
+                        <h6>Fee Structure Details</h6>
                         <a href="{{ route('admin.feeStructure.create') }}"class="btn">Create</a>
                     </div>
                     <div class="col-md-12">
@@ -41,12 +41,13 @@
                                 </thead>
                                 <tbody>
                                     @forelse ($fee_structures as $value)
+
                                         <tr>
                                             <td>
                                                 <div class="d-flex flex-column justify-content-center">
 
                                                     <p class="mb-0 text-sm text-secondary">
-                                                        {{ $value->class->name ?? 'N/A' }}</p>
+                                                        {{ $value->classSection->class->name ?? 'N/A' }}{{ $value->classSection->section ?? '' }}</p>
                                                 </div>
                                             </td>
                                             <td>

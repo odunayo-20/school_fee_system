@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\FeeStructure;
 
 use App\Models\ExternalClass;
+use App\Models\ExternalClassSection;
 use App\Models\ExternalSession;
 use App\Models\ExternalTerm;
 use App\Models\FeeStructure;
@@ -11,7 +12,7 @@ use Livewire\Component;
 
 class Create extends Component
 {
-    public $class, $session, $term, $amount, $description, $feeType, $status;
+    public $class_section, $session, $term, $amount, $description, $feeType, $status;
 
     public $classes;
     public $feeTypes;
@@ -20,7 +21,7 @@ class Create extends Component
 
     public function mount()
     {
-        $this->classes = ExternalClass::get();
+        $this->classes = ExternalClassSection::get();
 
         // dd($this->)
         $this->feeTypes = FeeType::where('status', 0)->get();
@@ -35,7 +36,7 @@ class Create extends Component
 
 
         $this->validate([
-            'class' => 'required',
+            'class_section' => 'required',
             'session' => 'required',
             'term' => 'required',
             'amount' => 'required',
@@ -44,7 +45,7 @@ class Create extends Component
         ]);
 
         $feeStructure = FeeStructure::create([
-            'class_id' => $this->class,
+            'class_section_id' => $this->class_section,
             'session_id' => $this->session,
             'term_id' => $this->term,
             'fee_type_id' => $this->feeType,

@@ -15,10 +15,14 @@ class StudentController extends Controller
 {
     protected $paginationTheme = 'bootstrap';
     use WithPagination;
+
+     public $perPage = 10;
+
+
     public function index()
     {
 
-        $students = ExternalStudent::paginate(1);
+        $students = ExternalStudent::paginate($this->perPage);
         return view('admin.student.index', compact('students'));
     }
     public function create()

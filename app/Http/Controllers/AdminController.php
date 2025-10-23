@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Student;
-use App\Models\StudentClass;
 use App\Models\Subject;
+use App\Models\StudentClass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -82,6 +83,10 @@ class AdminController extends Controller
             $imageName = request()->image->getClientOriginalName();
             request()->image->move(public_path('images/user/'), $imageName);
             $user->image = $imageName;
+        }
+          if (Storage::disk('local')->exists($user->image)) {
+            Storage::delete($user->image);
+            $user->delete();
         }
 
         if ($request->filled(['current_password', 'new_password', 'confirm_password'])) {

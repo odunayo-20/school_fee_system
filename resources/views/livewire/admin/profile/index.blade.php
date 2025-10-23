@@ -28,7 +28,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="mx-auto mt-3 col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0">
+                {{-- <div class="mx-auto mt-3 col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0">
                     <div class="nav-wrapper position-relative end-0">
                         <ul class="p-1 nav nav-pills nav-fill" role="tablist">
                             <li class="nav-item">
@@ -38,13 +38,13 @@
                                     <span class="ms-2">App</span>
                                 </a>
                             </li>
-                            {{-- <li class="nav-item">
+                            <li class="nav-item">
                                 <a class="px-0 py-1 mb-0 nav-link d-flex align-items-center justify-content-center "
                                     data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
                                     <i class="ni ni-email-83"></i>
                                     <span class="ms-2">Messages</span>
                                 </a>
-                            </li> --}}
+                            </li>
                             <li class="nav-item">
                                 <a class="px-0 py-1 mb-0 nav-link d-flex align-items-center justify-content-center "
                                     data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
@@ -54,7 +54,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -65,7 +65,7 @@
                     <div class="pb-0 card-header">
                         <div class="d-flex align-items-center">
                             <p class="mb-0">Edit Profile</p>
-                            <button class="btn btn-primary btn-sm ms-auto">Settings</button>
+                            {{-- <button class="btn btn-primary btn-sm ms-auto">Settings</button> --}}
                         </div>
                     </div>
                     <form wire:submit.prevent='updateProfile'>
@@ -123,12 +123,13 @@
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Image</label>
                                     <input wire:model='image' class="form-control" type="file">
+                                    <input wire:model='old_image' class="form-control" type="hidden" value="{{ $admin->image }}">
                                     @error('image')
                                      <span class="text-sm text-danger">{{ $message }}</span> @enderror
                                     @if ($image && !is_string($image))
                                     <img src="{{ $image->temporaryUrl() }}" width="100" class="mt-2">
                                     @elseif ($image)
-                                    <img src="{{ asset('storage/' . $image) }}" width="100" class="mt-2">
+                                    <img src="{{ Storage::url($admin->image) }}" width="100" class="mt-2">
                                     @endif
                                 </div>
                             </div>

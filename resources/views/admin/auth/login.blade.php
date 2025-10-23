@@ -4,30 +4,33 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+      <link rel='shortcut icon' type='image/x-icon' href='{{ asset('images/logo/logo.png') }}' />
     <title>
 
     </title>
-    <!--     Fonts and icons     -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-    <!-- Nucleo Icons -->
-    <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet" />
-    <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('admin/assets/css/argon-dashboard.css') }}" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-bx1L3A6U4gJqZ1+l8KdxFmqxN6XcRfK3LXLhF9bH1LUjVpg6U+G3Z2t98oG4clm6z1Xpgw6mD6ztxM0jvU3zug=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.min.css') }}">
+
 </head>
 
 <body class="">
 
     <main class="mt-0 main-content">
-        <div class="pt-5 m-3 page-header align-items-start min-vh-50 pb-11 border-radius-lg"
-            style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signup-cover.jpg'); background-position: top;">
-            <span class="mask bg-gradient-dark opacity-6"></span>
+        <div class="pt-5 m-3 overflow-hidden page-header align-items-start min-vh-50 pb-11 border-radius-lg position-relative">
+    <img src="{{ asset('admin/assets/img/class-background.jpg') }}"
+         alt="Background"
+         class="top-0 position-absolute start-0 w-100 h-100 object-fit-cover" />
+    <span class="top-0 mask bg-gradient-dark opacity-6 position-absolute start-0 w-100 h-100"></span>
+</div>
 
-        </div>
         <div class="container">
             <div class="row mt-lg-n10 mt-md-n11 mt-n10 justify-content-center">
                 <div class="mx-auto col-xl-4 col-lg-5 col-md-7">
@@ -35,7 +38,12 @@
                         <div class="pt-4 text-center card-header">
                             <h5>Login</h5>
                         </div>
+@if (session('error'))
+    <div class="col-md-12">
+        <div class="text-sm alert alert-danger">{{ session('error') }}</div>
+    </div>
 
+@endif
                         <div class="card-body">
                             <form action="{{ route('admin.loginConfirm') }}" method="POST">
                                 @csrf
@@ -47,14 +55,27 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <input type="password" class="form-control" name="password" placeholder="Password"
-                                        aria-label="Password">
+                                    <label class="control-label">Password</label>
+                                    <div class="input-group">
+                                        <input id="password" type="password"
+                                            class="form-control @error('password') is-invalid @enderror" name="password"
+                                            required autocomplete="current-password">
+                                        <div class="input-group-append" style="border: 1px solid #ced4da; border-left: none; border-radius: 0 .375rem .375rem 0;">
+                                            <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
+                                                <i class="fa fa-eye" id="eyeIcon"></i>
+                                            </span>
+                                        </div>
+                                    </div>
                                     @error('password')
-                                        <span class="text-xs text-danger">{{ $message }}</span>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
+
                                 <div class="form-check form-check-info text-start">
-                                    <input class="form-check-input" name="remember" type="checkbox" value="" id="flexCheckDefault">
+                                    <input class="form-check-input" name="remember" type="checkbox" value=""
+                                        id="flexCheckDefault">
                                     <label class="form-check-label text-dark font-weight-bolder" for="flexCheckDefault">
                                         Remember Me
                                     </label>
@@ -88,12 +109,8 @@
             </div>
         </div>
     </footer>
-    <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
-    <!--   Core JS Files   -->
-    {{-- <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script> --}}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!--   Core JS Files   -->
     <script src="{{ asset('admin/assets/js/core/popper.min.js') }}"></script>
@@ -111,11 +128,29 @@
             }
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
+
+
+        // Password visibility toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#password');
+            const eyeIcon = document.querySelector('#eyeIcon');
+
+            togglePassword.addEventListener('click', function() {
+                // Toggle the type attribute
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+
+                // Toggle the eye icon
+                eyeIcon.classList.toggle('fa-eye');
+                eyeIcon.classList.toggle('fa-eye-slash');
+            });
+        });
     </script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="../assets/js/argon-dashboard.min.js?v=2.1.0"></script>
+    <script src="{{ asset('admin/assets/js/argon-dashboard.min.js') }}"></script>
 </body>
 
 </html>

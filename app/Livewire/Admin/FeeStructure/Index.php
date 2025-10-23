@@ -13,13 +13,13 @@ class Index extends Component
     protected $paginationTheme = 'bootstrap';
     public $fee_structure;
 
-
+ public $perPage = 10;
 
 
     public function render()
     {
         // $fee_structures = $this->fee_structures;
-        $fee_structures = FeeStructure::with(['feeType', 'term', 'session', 'class'])->paginate(3);
+        $fee_structures = FeeStructure::with(['feeType', 'term', 'session', 'class'])->paginate($this->perPage);
         return view('livewire.admin.fee-structure.index', compact('fee_structures'));
     }
 

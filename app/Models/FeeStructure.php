@@ -14,6 +14,10 @@ class FeeStructure extends Model
         return $this->belongsTo(ExternalClass::class, 'class_id');
     }
 
+    public function classSection(){
+        return $this->belongsTo(ExternalClassSection::class, 'class_section_id');
+    }
+
     public function session(){
         return $this->belongsTo(ExternalSession::class, 'session_id');
     }

@@ -5,8 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel='shortcut icon' type='image/x-icon' href='{{ asset('images/logo/logo.png') }}' />
   <title>
     Reset Password
   </title>
@@ -35,20 +34,42 @@
         <div class="mx-auto col-xl-4 col-lg-5 col-md-7">
           <div class="card z-index-0">
             <div class="pt-4 text-center card-header">
-              <h5>Forget Password</h5>
+              <h5>Reset Password</h5>
             </div>
 
             <div class="card-body">
-              <form role="form">
+              <form action="{{ route('admin.resetPasswordChange') }}" method="POST">
+                @csrf
+                @if (session('error'))
+                    <div class="col-md-12">
+                        <div class="text-sm alert alert-danger">{{ session('error') }}</div>
+                    </div>
+                @endif
+                @if (session('success'))
+                    <div class="col-md-12">
+                        <div class="text-sm alert alert-success">{{ session('success') }}</div>
+                    </div>
+                @endif
+                <input type="hidden" name="token" value="{{ $admin->token }}">
+                <input type="hidden" name="email" value="{{ $admin->email }}">
                 <div class="mb-3">
-                  <input type="email" class="form-control" placeholder="Email" aria-label="Email">
+                  <input type="password" name="password" class="form-control" placeholder="password" aria-label="password">
+                    @error('password')
+                        <span class="text-xs text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                  <input type="password" name="confirm_password" class="form-control" placeholder="confirm password" aria-label="password">
+                    @error('confirm_password')
+                        <span class="text-xs text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
                 {{-- <div class="mb-3">
                   <input type="password" class="form-control" placeholder="Password" aria-label="Password">
                 </div> --}}
 
                 <div class="text-center">
-                  <button type="button" class="my-4 mb-2 btn bg-gradient-dark w-100">Send</button>
+                  <button type="submit" class="my-4 mb-2 btn bg-gradient-dark w-100">Send</button>
                 </div>
                 <p class="mt-3 mb-0 text-sm">Already have an account? <a href="javascript:;" class="text-dark font-weight-bolder">Sign in</a></p>
                 <p class="mt-3 mb-0 text-sm"><a href="{{ route('admin.forget') }}" class="text-dark font-weight-bolder">Forgot Password</a></p>

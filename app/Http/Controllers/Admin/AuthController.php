@@ -54,7 +54,11 @@ class AuthController extends Controller
     if (Auth::guard('admin')->attempt($credentials, $remember)) {
         // Authentication passed...
         return redirect()->intended(route('admin.dashboard'));
+    }else {
+
+        session()->flash('error', 'Invalid credentials provided.');
     }
+
 
     // Authentication failed
     return back()->withErrors([
@@ -82,6 +86,7 @@ class AuthController extends Controller
 
     public function forgetSend(Request $request)
     {
+        // dd( $request->all());
         $validated = $request->validate(['email' => 'required|email']);
 
         $admin = Admin::where('email', $request->email)->first();
@@ -100,7 +105,10 @@ class AuthController extends Controller
             'title' => 'Password Reset',
             'url' => $reset_link,
             'message' => $message,
+            // "subject" => $subject,
         ];
+
+        // dd( $maildata);
         Mail::to($request->email)->send(new WebsiteMail($subject, $maildata));
 
         session()->flash('success', 'Reset Password Link sent to your email');
@@ -129,7 +137,7 @@ class AuthController extends Controller
     {
         $validated = $request->validate([
             'password' => 'required|string',
-            'password' => 'required|same:password',
+            'confirm_password' => 'required|same:password',
         ]);
 
         $admin = Admin::where('email', $request->email)->where('token', $request->token)->first();

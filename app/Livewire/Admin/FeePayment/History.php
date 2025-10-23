@@ -18,7 +18,7 @@ class History extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $search = '';
-    public $perPage = 5;
+    public $perPage = 10;
 
     public $filter_start, $filter_end, $filter_term, $filter_session, $filter_student;
     public $sessions, $terms, $students;
@@ -63,7 +63,7 @@ class History extends Component
 
         return view('livewire.admin.fee-payment.history', [
             'payments' => $payments
-        ])->extends('layouts.app')->section('content');
+        ])->extends('Layouts.app')->section('content');
     }
 
 

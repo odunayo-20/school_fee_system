@@ -6,11 +6,13 @@ use App\Models\Admin;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class Index extends Component
 {
     use WithFileUploads;
-    public $firstname, $lastname, $email, $phone, $image, $username;
+    public $firstname, $lastname, $email, $phone, $image, $username, $old_image;
     public $admin;
     public $password, $password_confirmation;
     public $showPassword = false;
@@ -24,46 +26,48 @@ class Index extends Component
         $this->email = $this->admin->email ?? '';
         $this->phone = $this->admin->phone ?? '';
         $this->image = $this->admin->image;
-
-
     }
+public function updateProfile()
+{
+    $this->validate([
+        'firstname' => 'required|string|max:255',
+        'lastname' => 'required|string|max:255',
+        'username' => 'required|string|max:255|unique:admins,username,' . $this->admin->id,
+        'email' => 'required|email|max:255|unique:admins,email,' . $this->admin->id,
+        'phone' => 'required|string|max:20',
+        'password' => 'nullable|string|min:8|confirmed',
+    ]);
 
-    public function updateProfile()
-    {
+    if (!empty($this->image) && gettype($this->image) !== 'string') {
         $this->validate([
-            'firstname' => 'required|string|max:255',
-            'lastname' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:admins,username,'. $this->admin->id,
-            'email' => 'required|email|max:255|unique:admins,email,' . $this->admin->id,
-            'phone' => 'required|string|max:20',
-            'password' => 'nullable|string|min:8|confirmed',
+            'image' => 'nullable|image|max:1024', // 1MB Max
         ]);
-        if ($this->image && gettype($this->image) != 'string') {
-            $this->validate([
-                 'image' => 'nullable|file|max:255',
-            ]);
-            $imageName = time() . '.' . $this->image->getClientOriginalExtension();
-            $this->image->storeAs('admins', $imageName, 'public');
-            $imageFile = 'admins/' . $imageName;
-        } else {
-            $imageFile = $this->admin->image; // Retain the old image if no new image is uploaded
+
+        // Delete old image if it exists
+        if (!empty($this->old_image) && Storage::disk('public')->exists($this->old_image)) {
+            Storage::disk('public')->delete($this->old_image);
         }
 
-
-    // dd($data);
-        $this->admin->update([
-            'firstname' => $this->firstname,
-            'lastname' => $this->lastname,
-            'username' => $this->username,
-            'email' => $this->email,
-            'phone' => $this->phone,
-            'image' => $imageFile,
-            'password' => $this->password ? bcrypt($this->password) : $this->admin->password,
-        ]);
-
-        session()->flash('success', 'Profile updated successfully!');
-        // $this->dispatch('close-modal');
+        // Save new image
+        $imageFile = $this->image->store('admins', 'public');
+    } else {
+        // Keep old image
+        $imageFile = $this->old_image;
     }
+
+    $this->admin->update([
+        'firstname' => $this->firstname,
+        'lastname' => $this->lastname,
+        'username' => $this->username,
+        'email' => $this->email,
+        'phone' => $this->phone,
+        'image' => $imageFile,
+        'password' => Hash::make($this->password),
+    ]);
+
+    session()->flash('success', 'Profile updated successfully!');
+}
+
     public function render()
     {
         return view('livewire.admin.profile.index');

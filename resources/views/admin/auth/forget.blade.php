@@ -5,8 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <link rel='shortcut icon' type='image/x-icon' href='{{ asset('images/logo/logo.png') }}' />
   <title>
    Forget Password
   </title>
@@ -39,16 +38,30 @@
             </div>
 
             <div class="card-body">
-              <form role="form">
+              <form action="{{ route('admin.forgetSend') }}" method="POST">
+                @csrf
+                @if (session('error'))
+                    <div class="col-md-12">
+                        <div class="text-sm alert alert-danger">{{ session('error') }}</div>
+                    </div>
+                @endif
+                @if (session('success'))
+                    <div class="col-md-12">
+                        <div class="text-sm alert alert-success">{{ session('success') }}</div>
+                    </div>
+                @endif
                 <div class="mb-3">
-                  <input type="email" class="form-control" placeholder="Email" aria-label="Email">
+                  <input type="email" name="email" class="form-control" placeholder="Email" aria-label="Email">
+                    @error('email')
+                        <span class="text-xs text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
                 {{-- <div class="mb-3">
                   <input type="password" class="form-control" placeholder="Password" aria-label="Password">
                 </div> --}}
 
                 <div class="text-center">
-                  <button type="button" class="my-4 mb-2 btn bg-gradient-dark w-100">Send</button>
+                  <button type="submit" class="my-4 mb-2 btn bg-gradient-dark w-100">Send</button>
                 </div>
 
               </form>
